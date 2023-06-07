@@ -1,0 +1,23 @@
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 100vh;
+  background: #0D0C0F;
+}
+
+.invisibleBackground {
+  background: #0D0C0F;
+}
+
+.searchButton {
+  background-color: black;
+  color: #ffff;
+  border: none;
+  border-radius: px;
+}
+
+.searchButton:hover {
+  background-color: rgb(32, 32, 32);
+}
