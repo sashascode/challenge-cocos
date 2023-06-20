@@ -36,7 +36,6 @@ export const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = () => {
   const [scrolled, setScrolled] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    console.log(window)
     const handleScroll = () => {
       const show = window.scrollY > 50;
       if (show) {
