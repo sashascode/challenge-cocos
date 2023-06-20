@@ -2,13 +2,27 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { Movie } from '@/types';
 import axios from 'axios';
-import { Container } from 'react-bootstrap';
 import Image from 'next/image';
 import styled from '@emotion/styled';
+import { useState, useEffect } from 'react';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Chip from '@mui/material/Chip';
+import StarsIcon from '@mui/icons-material/Stars';
+import { fetchMovieData } from '../../../services/movieAPI'
+import useMovieDetails from '@/hooks/useMovieDetails';
 
 type StyledDivProps = {
   imageUrl: string | undefined;
 };
+
+const StyledChip = styled(Chip)`
+  background-color: #101419;
+  color: white;
+  position: relative;
+  top: 10px;
+  font-weight: bold;
+`;
 
 const StyledDiv = styled.div<StyledDivProps>`
   position: relative;
@@ -16,40 +30,22 @@ const StyledDiv = styled.div<StyledDivProps>`
   width: 100%;
   background-size: cover;
   background-position: center;
-  background-image: ${(props) => `linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)), url(${props.imageUrl})`};
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0.5)), url(${props => props.imageUrl});
 `;
 
-
 export const getServerSideProps: GetServerSideProps = async (context) => {
-    const idMovie = context.params?.idMovie;
-  
-    if (typeof idMovie !== 'string') {
-        console.log("Error")
-      return {
-        notFound: true,
-      };
-    }
-  
-    const options = {
-        method: 'GET',
-        url: `https://api.themoviedb.org/3/movie/${idMovie}`,
-        headers: {
-          Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiODc1MmUzMWFiZTcwNjBmMGQ3MzNiYTI1NmJhZmFmMiIsInN1YiI6IjY0NTU5ZDMxNWEwN2Y1MDE3YzhhMmE3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N4UVrOIJcnN-NvWlxX6CLMM3eOgkMqD5fy3Bq7pRlDg'
-        }
-    };
-  
-    const response = await axios.request(options);
-    const responseImg = await axios.request({
-        method: 'GET',
-        url: `https://api.themoviedb.org/3/movie/${idMovie}/images`,
-        headers: {
-            Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiODc1MmUzMWFiZTcwNjBmMGQ3MzNiYTI1NmJhZmFmMiIsInN1YiI6IjY0NTU5ZDMxNWEwN2Y1MDE3YzhhMmE3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N4UVrOIJcnN-NvWlxX6CLMM3eOgkMqD5fy3Bq7pRlDg'
-        }
-    })
+  const idMovie = context.params?.idMovie;
 
-    const movieImgs: any = responseImg.data;
-    const movie: Movie = response.data;                 
-    return { props: { movie, movieImgs } };
+  if (typeof idMovie !== 'string') {
+    console.log("Error");
+    return {
+      notFound: true,
+    };
+  }
+
+  const {movie, movieImgs} = await fetchMovieData(idMovie);
+          
+  return { props: { movie, movieImgs } };
 };
 
 interface MovieDetailProps {
@@ -59,23 +55,52 @@ interface MovieDetailProps {
 
 const MovieDetail: React.FC<MovieDetailProps> = ({ movie, movieImgs }) => {
   const router = useRouter();
-
-  if(movie) {
-    console.log(movie);
-  }
-
-  if(movieImgs) {
-    console.log(movieImgs)
-  }
+  const {logo, background, genresNames} = useMovieDetails(movie, movieImgs);
   
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
   return (
-    <StyledDiv imageUrl={`https://image.tmdb.org/t/p/original/${movieImgs?.backdrops[2].file_path}`}>
-      
-    </StyledDiv>
+    <>
+      { background &&
+        <StyledDiv imageUrl={background}>
+          <Box position="relative" left="50px" top="100px">
+            {
+              logo &&
+              <Box>
+                <Image
+                src={logo}
+                alt={`logo ${movie.title}`}
+                width={350}
+                height={150}
+                />
+              </Box>
+            }
+            <Box sx={{display: "flex", gap: "1.5rem"}}>
+              { 
+                genresNames &&
+                <Typography sx={{fontSize: 15, color: '#fff', marginTop: 2}}>
+                  {genresNames}
+                </Typography>
+              }
+
+              <StyledChip
+                avatar={<StarsIcon sx={{color: "#F3D34A !important"}}/>}
+                label={movie.vote_average.toFixed(1)}
+              />
+              
+            </Box>
+            
+            <Typography sx={{fontSize: 18, color: '#fff', marginTop: 2, width: "40%"}}>
+              {movie.overview}
+            </Typography>
+            
+          </Box> 
+        </StyledDiv>
+      }
+    </>
+    
   );
 };
 

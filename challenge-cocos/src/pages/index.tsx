@@ -38,7 +38,6 @@ export default function Home() {
     axios
       .request(options)
       .then(function (response) {
-        console.log(response.data);
         setMovies(response.data.results)
       })
       .catch(function (error) {

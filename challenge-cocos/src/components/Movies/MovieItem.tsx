@@ -11,7 +11,6 @@ interface MovieProps {
 }
 
 export const MovieItem: React.FC<MovieProps> = ({movie}) => {
-    console.log(movie)
   return (
     <Card>
       <Link href={`/movies/detail/${movie.id}`} underline="none">
