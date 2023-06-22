@@ -12,25 +12,25 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import styled from '@emotion/styled';
-import AdbIcon from '@mui/icons-material/Adb';
 import HomeIcon from '@mui/icons-material/Home';
 import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import GradeIcon from '@mui/icons-material/Grade';
+import Link from 'next/link'
 
 const pages = [
-  {name: 'Home', icon: HomeIcon}, 
-  {name: 'Search', icon: SearchIcon}, 
-  {name: 'Favorites', icon: GradeIcon}
+  {id: "btnHomeNavbar", name: 'Home', icon: HomeIcon, url: "/"}, 
+  {id: "btnSearchNavbar", name: 'Search', icon: SearchIcon, url: "/search"}, 
+  {id: "btnFavNavbar", name: 'Favorites', icon: GradeIcon, url: "/favorites"}
 ];
 
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-type ResponsiveAppBarProps = {
+type NavBarProps = {
   backgroundImage: string | null;
 };
 
-export const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = () => {
+export const NavBar: React.FC<NavBarProps> = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = React.useState<boolean>(false);
@@ -46,7 +46,6 @@ export const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = () => {
     };
   
     if (typeof window !== 'undefined') { 
-      
       window.addEventListener('scroll', handleScroll);
       return () => {
         window.removeEventListener('scroll', handleScroll);
@@ -57,12 +56,13 @@ export const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = () => {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
+  };
+
+  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseUserMenu = () => {
@@ -73,12 +73,14 @@ export const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = () => {
     <StyledAppBar position="sticky" scrolled={scrolled}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
-          <Image src="https://cocos.capital/wp-content/uploads/Logo-Principal.svg"
-            width={100}
-            height={70.66}
-            alt="Cocos Capital Logo"
-          />
-
+          <Link href="/">
+            <Image src="https://cocos.capital/wp-content/uploads/Logo-Principal.svg"
+              width={100}
+              height={70.66}
+              alt="Cocos Capital Logo"
+            />
+          </Link>
+          
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               size="large"
@@ -109,32 +111,36 @@ export const ResponsiveAppBar: React.FC<ResponsiveAppBarProps> = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
+                <Link key={page.id} href={page.url}>
+                  <MenuItem onClick={handleCloseNavMenu}>
+                    <Typography textAlign="center">{page.name}</Typography>
+                  </MenuItem>
+                </Link>
               ))}
             </Menu>
           </Box>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
-              <StyledButton
-                key={page.name}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, ml: 4, color: 'white', display: 'block' }}
-                >
-                <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
+              <Link key={page.id} href={page.url}>
+                <StyledButton
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                  sx={{ my: 2, ml: 4, color: 'white', display: 'block' }}
+                  >
+                  <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
                     {React.createElement(page.icon, { sx: { mr: 1, fontSize:'18px' } })}
                     {page.name}
-                </Box>
-              </StyledButton>
-            ))}
+                  </Box>
+                </StyledButton>
+              </Link>
+              ))}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/charlyicon.jpg" />
+                <Avatar alt="User icon" src="/charlyicon.jpg" />
               </IconButton>
             </Tooltip>
             <Menu

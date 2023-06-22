@@ -1,7 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { Movie } from '@/types';
-import axios from 'axios';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
