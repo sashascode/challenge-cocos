@@ -1,43 +1,33 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
+import { AppBar, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Box } from '@mui/material'
 import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import styled from '@emotion/styled';
-import HomeIcon from '@mui/icons-material/Home';
-import Image from 'next/image';
 import SearchIcon from '@mui/icons-material/Search';
 import GradeIcon from '@mui/icons-material/Grade';
+import HomeIcon from '@mui/icons-material/Home';
+import Image from 'next/image';
 import Link from 'next/link'
+import { Page } from '@/types';
+import { useCallback } from 'react';
+import { PageButton } from './PageButton';
+import { SettingsMenu } from './SettingsMenu';
 
-const pages = [
+const SCROLL_THRESHOLD = 50;
+
+const pages: Page[] = [
   {id: "btnHomeNavbar", name: 'Home', icon: HomeIcon, url: "/"}, 
   {id: "btnSearchNavbar", name: 'Search', icon: SearchIcon, url: "/search"}, 
   {id: "btnFavNavbar", name: 'Favorites', icon: GradeIcon, url: "/favorites"}
 ];
 
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-type NavBarProps = {
-  backgroundImage: string | null;
-};
-
-export const NavBar: React.FC<NavBarProps> = () => {
+export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = React.useState<boolean>(false);
 
   React.useEffect(() => {
     const handleScroll = () => {
-      const show = window.scrollY > 50;
+      const show = window.scrollY > SCROLL_THRESHOLD;
       if (show) {
         setScrolled(true);
       } else {
@@ -53,21 +43,21 @@ export const NavBar: React.FC<NavBarProps> = () => {
     }
   }, []);  
   
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenNavMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
-  };
+  }, []);
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = useCallback(() => {
     setAnchorElNav(null);
-  };
+  }, []);
 
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+  const handleOpenUserMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-  };
+}, []);
 
-  const handleCloseUserMenu = () => {
+  const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
-  };
+  }, []);
 
   return (
     <StyledAppBar position="sticky" scrolled={scrolled}>
@@ -121,20 +111,11 @@ export const NavBar: React.FC<NavBarProps> = () => {
           </Box>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
-              <Link key={page.id} href={page.url}>
-                <StyledButton
-                  key={page.name}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, ml: 4, color: 'white', display: 'block' }}
-                  >
-                  <Box sx={{ display: 'flex', alignItems: 'center', fontWeight: 'bold' }}>
-                    {React.createElement(page.icon, { sx: { mr: 1, fontSize:'18px' } })}
-                    {page.name}
-                  </Box>
-                </StyledButton>
-              </Link>
-              ))}
+            {
+              pages.map((page) => (
+                <PageButton key={page.id} page={page} handleClose={handleCloseNavMenu}/>
+              ))
+            }
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
@@ -143,28 +124,7 @@ export const NavBar: React.FC<NavBarProps> = () => {
                 <Avatar alt="User icon" src="/charlyicon.jpg" />
               </IconButton>
             </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
+            <SettingsMenu anchorEl={anchorElUser} handleClose={handleCloseUserMenu} />
           </Box>
         </Toolbar>
       </Container>
@@ -185,27 +145,3 @@ const StyledAppBar = styled(AppBar)<StyledAppBarProps>`
     border-bottom: 1px solid #222026;
   }
 `;
-
-const StyledButton = styled(Button)`
-  && {
-    background-color: transparent;
-    transition: background-color 0.3s ease;
-    position: relative;
-    &:after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      display: block;
-      height: 2px;
-      width: 0;
-      background: white;
-      transition: width 0.3s ease;
-    }
-
-    &:hover:after {
-      width: 100%;
-    }
-  }
-`;
-
