@@ -7,7 +7,6 @@ interface LayoutProps {
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const [backgroundImage, setBackgroundImage] = React.useState<string | null>(null);
 
   return (
     <>
@@ -17,7 +16,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <NavBar backgroundImage={backgroundImage} />
+      <NavBar />
       {children}
     </>
   );
