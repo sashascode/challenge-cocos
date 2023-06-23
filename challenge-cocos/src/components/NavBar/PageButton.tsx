@@ -6,8 +6,8 @@ import Link from 'next/link';
 import { Button, Box } from '@mui/material';
 
 interface PageButtonProps {
-    page: Page;
-    handleClose: (event: MouseEvent<HTMLElement>) => void;
+  page: Page;
+  handleClose: (event: MouseEvent<HTMLElement>) => void;
 }
 
 export const PageButton: React.FC<PageButtonProps> = ({ page, handleClose }) => (

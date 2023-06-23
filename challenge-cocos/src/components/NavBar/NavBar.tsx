@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Menu, Container, Avatar, Tooltip, MenuItem, Box } from '@mui/material'
-import MenuIcon from '@mui/icons-material/Menu';
+import { AppBar, Toolbar, IconButton, Container, Avatar, Tooltip, Box } from '@mui/material'
 import styled from '@emotion/styled';
 import SearchIcon from '@mui/icons-material/Search';
 import GradeIcon from '@mui/icons-material/Grade';
@@ -11,6 +10,7 @@ import { Page } from '@/types';
 import { useCallback } from 'react';
 import { PageButton } from './PageButton';
 import { SettingsMenu } from './SettingsMenu';
+import ResponsiveMenu from './ResponsiveMenu';
 
 const SCROLL_THRESHOLD = 50;
 
@@ -53,7 +53,7 @@ export const NavBar = () => {
 
   const handleOpenUserMenu = useCallback((event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
-}, []);
+  }, []);
 
   const handleCloseUserMenu = useCallback(() => {
     setAnchorElUser(null);
@@ -72,42 +72,7 @@ export const NavBar = () => {
           </Link>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              {pages.map((page) => (
-                <Link key={page.id} href={page.url}>
-                  <MenuItem onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">{page.name}</Typography>
-                  </MenuItem>
-                </Link>
-              ))}
-            </Menu>
+            <ResponsiveMenu pages={pages} handleClose={handleCloseNavMenu} handleOpen={handleOpenNavMenu} anchorEl={anchorElNav}/>
           </Box>
           
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
@@ -124,6 +89,7 @@ export const NavBar = () => {
                 <Avatar alt="User icon" src="/charlyicon.jpg" />
               </IconButton>
             </Tooltip>
+            
             <SettingsMenu anchorEl={anchorElUser} handleClose={handleCloseUserMenu} />
           </Box>
         </Toolbar>
