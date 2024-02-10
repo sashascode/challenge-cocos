@@ -6,8 +6,8 @@ const nextConfig = {
   },
   env: {
     MOVIE_API_KEY: process.env.MOVIE_API_KEY,
-    GET_MOVIE_DETAILS_URL: process.env.GET_MOVIE_DETAILS_URL,
-    SEARCH_MOVIE_URL: process.env.SEARCH_MOVIE_URL,
+    MOVIE_API_URL: process.env.MOVIE_API_URL,
+    SEARCH_API_URL: process.env.SEARCH_API_URL,
   },
   reactStrictMode: true,
   productionBrowserSourceMaps: false,

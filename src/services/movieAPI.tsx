@@ -2,8 +2,8 @@ import { Movie, MovieImages } from "@/types";
 import axios from "axios";
 
 const API_KEY = process.env.MOVIE_API_KEY;
-const MOVIE_DETAILS_URL = process.env.GET_MOVIE_DETAILS_URL;
-const SEARCH_MOVIE_URL = process.env.SEARCH_MOVIE_URL;
+const MOVIE_API_URL = process.env.MOVIE_API_URL;
+const SEARCH_API_URL = process.env.SEARCH_API_URL;
 
 interface MovieData {
   movie: Movie;
@@ -16,7 +16,7 @@ type SearchMovieFn = (a: string) => Promise<Movie[]>;
 export const fetchMovieData: GetMovieDataFn = async (idMovie) => {
   const options = {
     method: 'GET',
-    url: `${MOVIE_DETAILS_URL}${idMovie}`,
+    url: `${MOVIE_API_URL}${idMovie}`,
     headers: { Authorization: `Bearer ${API_KEY}` }
   };
 
@@ -24,7 +24,7 @@ export const fetchMovieData: GetMovieDataFn = async (idMovie) => {
     const movieResponse = await axios.request(options);
     const movieImgResponse = await axios.request({
       ...options,
-      url: `${MOVIE_DETAILS_URL}${idMovie}/images`
+      url: `${MOVIE_API_URL}${idMovie}/images`
     });
 
     return { movie: movieResponse.data, movieImgs: movieImgResponse.data };
@@ -37,7 +37,7 @@ export const fetchMovieData: GetMovieDataFn = async (idMovie) => {
 export const searchMovie: SearchMovieFn = async (query) => {
   const options = {
     method: 'GET',
-    url: `${SEARCH_MOVIE_URL}?query=${query}`,
+    url: `${SEARCH_API_URL}movie?query=${query}`,
     headers: { Authorization: `Bearer ${API_KEY}` }
   };
 

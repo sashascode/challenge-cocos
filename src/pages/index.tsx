@@ -30,7 +30,7 @@ export default function Home() {
   useEffect(() => {
     const options = {
       method: 'GET',
-      url: 'https://api.themoviedb.org/3/movie/popular', // TODO: Guadar en .env
+      url: `${process.env.MOVIE_API_URL}popular`, // TODO: Guadar en .env
       headers: {
         Authorization: `Bearer ${process.env.MOVIE_API_KEY}`
       }
