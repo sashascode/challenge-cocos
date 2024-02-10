@@ -37,7 +37,7 @@ export const fetchMovieData: GetMovieDataFn = async (idMovie) => {
 export const searchMovie: SearchMovieFn = async (query) => {
   const options = {
     method: 'GET',
-    url: `${SEARCH_MOVIE_URL}${query}`,
+    url: `${SEARCH_MOVIE_URL}?query=${query}`,
     headers: { Authorization: `Bearer ${API_KEY}` }
   };
 
