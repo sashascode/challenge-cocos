@@ -60,7 +60,7 @@ export const NavBar = () => {
   }, []);
 
   return (
-    <StyledAppBar position="sticky" scrolled={scrolled}>
+    <StyledAppBar position="sticky" scrolled={scrolled.toString()}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href="/">
@@ -99,7 +99,7 @@ export const NavBar = () => {
 }
 
 type StyledAppBarProps = {
-  scrolled: boolean;
+  scrolled: string;
 };
 
 const StyledAppBar = styled(AppBar)<StyledAppBarProps>`
