@@ -26,12 +26,13 @@ export default function Home() {
     setActiveMovie(movie);
   };
 
+  // TODO: Hacer funcion para los requests
   useEffect(() => {
     const options = {
       method: 'GET',
-      url: 'https://api.themoviedb.org/3/movie/popular',
+      url: 'https://api.themoviedb.org/3/movie/popular', // TODO: Guadar en .env
       headers: {
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJiODc1MmUzMWFiZTcwNjBmMGQ3MzNiYTI1NmJhZmFmMiIsInN1YiI6IjY0NTU5ZDMxNWEwN2Y1MDE3YzhhMmE3YiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.N4UVrOIJcnN-NvWlxX6CLMM3eOgkMqD5fy3Bq7pRlDg'
+        Authorization: `Bearer ${process.env.MOVIE_API_KEY}`
       }
     };
 
