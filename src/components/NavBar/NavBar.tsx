@@ -64,7 +64,7 @@ export const NavBar = () => {
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Link href="/">
-            <Image src="https://cocos.capital/wp-content/uploads/Logo-Principal.svg"
+            <Image src="/Fight-Club-Logo.png"
               width={100}
               height={70.66}
               alt="Cocos Capital Logo"

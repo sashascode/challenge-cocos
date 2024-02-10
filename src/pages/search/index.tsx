@@ -10,6 +10,8 @@ import { searchMovie } from '@/services/movieAPI';
 import { MovieItem } from '@/components/Movies/MovieItem';
 import { Grid } from '@mui/material';
 
+// TODO: Agregar estilos a los resultados de la búsqueda
+
 const SearchPage = () => {
   const [query, setQuery] = useState<null | string>(null);
   const [results, setResults] = useState<null | Movie[]>(null);

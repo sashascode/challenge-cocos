@@ -12,6 +12,8 @@ import { fetchMovieData } from '../../../services/movieAPI'
 import useMovieDetails from '@/hooks/useMovieDetails';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+// TODO: Agregar placeholders de carga o spinners
+
 type StyledDivProps = {
   imageUrl: string | undefined;
 };
