@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { Movie } from '@/types';
+import { Movie, MovieImages } from '@/types';
 import Image from 'next/image';
 import styled from '@emotion/styled';
 import { useState, useEffect } from 'react';
@@ -10,6 +10,7 @@ import Chip from '@mui/material/Chip';
 import StarsIcon from '@mui/icons-material/Stars';
 import { fetchMovieData } from '../../../services/movieAPI'
 import useMovieDetails from '@/hooks/useMovieDetails';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 type StyledDivProps = {
   imageUrl: string | undefined;
@@ -49,7 +50,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 interface MovieDetailProps {
   movie: Movie;
-  movieImgs: any;
+  movieImgs: MovieImages;
 }
 
 const MovieDetail: React.FC<MovieDetailProps> = ({ movie, movieImgs }) => {
@@ -64,6 +65,7 @@ const MovieDetail: React.FC<MovieDetailProps> = ({ movie, movieImgs }) => {
     <>
       { background &&
         <StyledDiv imageUrl={background}>
+          <ArrowBackIcon/>
           <Box position="relative" left="50px" top="100px">
             {
               logo &&
