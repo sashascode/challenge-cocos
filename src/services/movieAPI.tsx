@@ -1,7 +1,7 @@
 import { Movie, MovieImages } from "@/types";
 import axios from "axios";
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.MOVIE_API_KEY;
 const MOVIE_DETAILS_URL = `https://api.themoviedb.org/3/movie/`;
 const SEARCH_MOVIE_URL = `https://api.themoviedb.org/3/search/movie?query=`;
 
