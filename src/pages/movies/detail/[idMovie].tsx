@@ -12,7 +12,7 @@ import { fetchMovieData } from '../../../services/movieAPI'
 import useMovieDetails from '@/hooks/useMovieDetails';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
-// TODO: Agregar placeholders de carga o spinners
+// TODO: Agregar placeholders de carga o spinners -> Skeleton en Material UI
 
 type StyledDivProps = {
   imageUrl: string | undefined;
@@ -98,6 +98,8 @@ const MovieDetail: React.FC<MovieDetailProps> = ({ movie, movieImgs }) => {
             <Typography sx={{fontSize: 18, color: '#fff', marginTop: 2, width: "40%"}}>
               {movie.overview}
             </Typography>
+
+            
             
           </Box> 
         </StyledDiv>
