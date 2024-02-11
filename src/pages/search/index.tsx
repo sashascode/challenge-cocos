@@ -1,14 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import TextField from '@mui/material/TextField';
-import Stack from '@mui/material/Stack';
-import {Box, CssBaseline} from '@mui/material';
 import { Movie } from '@/types';
 import { searchMovie } from '@/services/movieAPI';
-import { MovieItem } from '@/components/Movies/MovieItem';
-import { Grid } from '@mui/material';
 import { MoviesContainer } from '@/components/Movies/MoviesContainer';
 import InputSearch from '@/components/InputSearch/InputSearch';
 
