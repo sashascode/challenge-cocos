@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import { Movie } from '@/types';
-import Slider from '@/components/Slider';
+import Slider from '@/components/Slider/Slider';
 import { MovieItem } from '@/components/Movies/MovieItem';
 
 const SliderProps = {

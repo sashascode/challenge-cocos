@@ -29,7 +29,7 @@ export const StyledSliderItem = styled.div<Props>`
     transition: border 0.2s ease-in-out; /* Add transition */
 
     &:hover {
-      border: 3px solid #0062e1 !important;
+      border: 3px solid #D51F2D !important;
     }
   }
 
