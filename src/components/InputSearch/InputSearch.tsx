@@ -2,8 +2,8 @@ import { Box, Stack, TextField, styled } from '@mui/material'
 import React from 'react'
 
 interface InputSearchProps {
-    setQuery: (query: string) => void;
-    query: string;
+  setQuery: (query: string) => void;
+  query: string;
 }
 
 const InputSearch: React.FC<InputSearchProps> = ({ setQuery, query }) => {

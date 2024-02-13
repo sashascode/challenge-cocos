@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 import { Movie } from '@/types';
 import Slider from '@/components/Slider/Slider';
 import { MovieItem } from '@/components/Movies/MovieItem';
+import { firebaseApp } from '@/services/firebaseAPI';
 
 const SliderProps = {
   zoomFactor: 10, // How much the image should zoom on hover in percent
@@ -44,6 +45,8 @@ export default function Home() {
       .catch(function (error) {
         console.error(error);
       });
+
+    console.log("firebaseApp: ", firebaseApp)
   }, [])
 
   return (

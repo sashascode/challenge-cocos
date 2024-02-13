@@ -19,6 +19,23 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: '"Nunito Sans", sans-serif', // sets global font
+    h5: {
+      color: '#ffffff'
+    }
+  },
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          fieldset: {
+            borderColor: '#ffffff'
+          },
+          color: '#ffffff'
+          
+        }
+      }
+      
+    }
   }
 });
 
