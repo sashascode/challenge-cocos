@@ -17,10 +17,6 @@ const SearchPage = () => {
     searchMovie(query).then(data => setResults(data));
   }, [query]);
 
-  useEffect(() => {
-    console.log(results)
-  }, [results])
-
   return (
     <>
       <InputSearch setQuery={setQuery} query={query || ''} />

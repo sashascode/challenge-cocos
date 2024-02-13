@@ -11,6 +11,8 @@ import { useCallback } from 'react';
 import { PageButton } from './PageButton';
 import { SettingsMenu } from './SettingsMenu';
 import ResponsiveMenu from './ResponsiveMenu';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const SCROLL_THRESHOLD = 50;
 
@@ -24,6 +26,7 @@ export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = React.useState<boolean>(false);
+  const avatarUrl = useSelector((state: RootState) => state.authReducer.value.avatarUrl);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -86,7 +89,7 @@ export const NavBar = () => {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User icon" src="/charlyicon.jpg" />
+                <Avatar alt="User icon" src={avatarUrl ? avatarUrl : "/avatars/broken-avatar.png"} />
               </IconButton>
             </Tooltip>
             

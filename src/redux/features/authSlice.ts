@@ -24,7 +24,9 @@ const initialState = {
     value: {
         isAuth: false,
         email: "",
+        username: "",
         uid: "",
+        avatarUrl: "",
         isModerator: false,
     } as AuthState
 } as InitialState

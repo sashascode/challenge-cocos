@@ -43,7 +43,6 @@ export const searchMovie: SearchMovieFn = async (query) => {
 
   try {
     const results = await axios.request(options);
-    console.log(results.data)
     return results.data.results;
   }
   catch(error) {

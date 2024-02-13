@@ -10,8 +10,6 @@ interface MoviesContainerProps {
 }
 
 export const MoviesContainer: React.FC<MoviesContainerProps> = ({ movieList }) => {
-  console.log(movieList);
-
   return (
     <StyledContainer maxWidth={'xl'}>
       <Grid container spacing={2}>
