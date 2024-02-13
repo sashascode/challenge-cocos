@@ -84,7 +84,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ title}) => {
         <Container component="main" maxWidth="xs">
             <Box sx={{ marginTop: 8, display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
                 <LoginFormHeader type={title}/>
-                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                     <LoginFormContent type={title} setAvatar={setAvatar}/>
                     <LoginFormFooter type={title}/>  
                 </Box>

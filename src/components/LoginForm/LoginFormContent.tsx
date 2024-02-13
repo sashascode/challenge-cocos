@@ -9,6 +9,8 @@ interface LoginFormContentProps {
     setAvatar: (newAvatar: string) => void,
 }
 
+// TODO: Validar password y mostrar feedback de error
+
 const LoginFormContent: React.FC<LoginFormContentProps> = ({type, setAvatar}) => {
   return (
     <>
