@@ -1,4 +1,12 @@
-import { initializeApp } from "firebase/app";
+import * as firebase from "firebase/app";
+import { 
+    getAuth, 
+    createUserWithEmailAndPassword, 
+    updateProfile, 
+    onAuthStateChanged, 
+    signInWithEmailAndPassword, 
+    signOut 
+} from 'firebase/auth';
 
 export const firebaseConfig = {
     apiKey: process.env.FB_API_KEY,
@@ -9,4 +17,14 @@ export const firebaseConfig = {
     appId: process.env.FB_APP_ID
 };
 
-export const firebaseApp = initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
+const auth = getAuth();
+
+export {
+    auth,
+    createUserWithEmailAndPassword,
+    updateProfile,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    signOut
+}

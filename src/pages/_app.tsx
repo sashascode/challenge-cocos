@@ -8,6 +8,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react';
 import theme from '../theme';
 import createEmotionCache from '../createEmotionCache';
 import { Layout } from '@/components/Layout';
+import { ReduxProvider } from '@/redux/provider';
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -30,12 +31,12 @@ export default function MyApp(props: MyAppProps) {
         <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@200;300;400;500;700&display=swap" rel="stylesheet"></link>
       </Head>
       <ThemeProvider theme={theme}>
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon.
-        remove the margins of all browsers and apply the material design background color */}
         <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <ReduxProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ReduxProvider>
         
       </ThemeProvider>
     </CacheProvider>

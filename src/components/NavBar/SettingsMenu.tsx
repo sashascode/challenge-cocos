@@ -1,14 +1,44 @@
 import { MouseEvent } from 'react';
 import { Typography, Menu, MenuItem } from '@mui/material'
-
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+import { useDispatch } from 'react-redux';
+import { logOut } from '../../redux/features/authSlice';
+import { auth } from '../../services/firebaseAPI'
 
 interface SettingsMenuProps {
-    anchorEl: null | HTMLElement;
-    handleClose: (event: MouseEvent<HTMLElement>) => void;
+  anchorEl: null | HTMLElement;
+  handleClose: () => void;
 }
 
-export const SettingsMenu: React.FC<SettingsMenuProps> = ({ anchorEl, handleClose }) => (
+export const SettingsMenu: React.FC<SettingsMenuProps> = ({ anchorEl, handleClose }) => {
+  const dispatch = useDispatch();
+
+  const doLogout = () => {
+    dispatch(logOut());
+    auth.signOut();
+
+    handleClose();
+  }
+
+  const settings = [
+    {
+      key: "Profile",
+      action: handleClose
+    },
+    {
+      key: "Account",
+      action: handleClose
+    },
+    {
+      key: "Dashboard",
+      action: handleClose
+    },
+    {
+      key: "Logout",
+      action: doLogout
+    },
+  ]; //'Profile', 'Account', 'Dashboard', 'Logout'
+
+  return(
     <Menu
       sx={{ mt: '45px' }}
       id="menu-appbar"
@@ -20,9 +50,11 @@ export const SettingsMenu: React.FC<SettingsMenuProps> = ({ anchorEl, handleClos
       onClose={handleClose}
     >
       {settings.map((setting) => (
-        <MenuItem key={setting} onClick={handleClose}>
-          <Typography textAlign="center">{setting}</Typography>
+        <MenuItem key={setting.key} onClick={setting.action}>
+          <Typography textAlign="center">{setting.key}</Typography>
         </MenuItem>
       ))}
     </Menu>
-);
+  )
+  
+};

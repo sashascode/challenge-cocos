@@ -9,17 +9,71 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { LoginFormType } from '@/types/LoginFormType';
+import {
+    auth,
+    createUserWithEmailAndPassword,
+    updateProfile,
+    signInWithEmailAndPassword,
+} from '../../services/firebaseAPI';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../../redux/features/authSlice';
 
 interface LoginFormProps {
     title: LoginFormType
 }
 
 const LoginForm: React.FC<LoginFormProps> = ({ title}) => {
+    const dispatch = useDispatch();
+
+    const doLogin = (email: string, password: string) => {
+        signInWithEmailAndPassword(auth, email, password).then((userAuth) => {
+            dispatch(
+                logIn({
+                    email: userAuth.user.email as string,
+                    uid: userAuth.user.uid as string
+                })
+            )
+        })
+        .catch((err) => {
+            console.log("Error in `doLogin`: ", err);
+        })
+    }
+
+    const doRegister = (email: string, password: string) => {
+        createUserWithEmailAndPassword(auth, email, password)
+        /*
+        .then((userAuth) => {
+            Update the newly created user with a display name and a picture
+            updateProfile(userAuth.user, {
+            displayName: name,
+            photoURL: profilePic,
+        })
+        */
+        .then((userAuth) => {
+            dispatch(
+                logIn({
+                    email: userAuth.user.email as string,
+                    uid: userAuth.user.uid as string
+                })
+            )
+        })
+        .catch((error) => {
+            console.log('Error in `doRegister`: ', error);
+        });
+    }
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const email =  data?.get('email') as string;
         const password = data?.get('password') as string;
+
+        if(title === LoginFormType.SIGN_IN) {
+            doLogin(email, password);
+        } else {
+            doRegister(email, password);
+        }
+        
     };
 
     return (
