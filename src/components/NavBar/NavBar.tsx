@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { AppBar, Toolbar, IconButton, Container, Avatar, Tooltip, Box } from '@mui/material'
+import { AppBar, Toolbar, IconButton, Container, Avatar, Tooltip, Box, Button } from '@mui/material'
 import styled from '@emotion/styled';
 import SearchIcon from '@mui/icons-material/Search';
 import GradeIcon from '@mui/icons-material/Grade';
@@ -26,7 +26,7 @@ export const NavBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
   const [scrolled, setScrolled] = React.useState<boolean>(false);
-  const avatarUrl = useSelector((state: RootState) => state.authReducer.value.avatarUrl);
+  const authState = useSelector((state: RootState) => state.authReducer.value);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -87,9 +87,18 @@ export const NavBar = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            {
+              !authState.isAuth &&
+              <Link href="/login">
+                <Button variant="outlined" sx={{ marginRight: 2 }}>
+                  Sign in
+                </Button>
+              </Link>
+            }
+           
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="User icon" src={avatarUrl ? avatarUrl : "/avatars/broken-avatar.png"} />
+                <Avatar alt="User icon" src={authState.avatarUrl ? authState.avatarUrl : "/avatars/broken-avatar.png"} />
               </IconButton>
             </Tooltip>
             

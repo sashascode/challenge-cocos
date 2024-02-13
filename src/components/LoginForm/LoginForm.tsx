@@ -24,7 +24,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ title}) => {
     const [avatar, setAvatar] = React.useState('/avatars/fc_avatar1.webp'); // TODO: Mejorar values de avatar: hacer constantes para que sean consistentes
 
     const doLogin = (email: string, password: string) => {
-        signInWithEmailAndPassword(auth, email, password).then((userAuth) => {
+        signInWithEmailAndPassword(auth, email, password)
+        .then((userAuth) => {
             dispatch(
                 logIn({
                     email: userAuth.user.email as string,
