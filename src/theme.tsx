@@ -34,8 +34,8 @@ const theme = createTheme({
           
         }
       }
-      
-    }
+    },
+    
   }
 });
 

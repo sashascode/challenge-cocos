@@ -13,6 +13,6 @@ Requerimientos técnicos:
 - La aplicación debe estar desarrollada con React y TypeScript. ✅
 - Se debe utilizar Next.js para el enrutamiento y el servidor de desarrollo. ✅
 - Se debe utilizar Material-UI para los componentes de la interfaz de usuario. ✅
-- Se debe utilizar Redux para manejar el estado de la aplicación.
+- Se debe utilizar Redux para manejar el estado de la aplicación. ✅
 - Se deben utilizar buenas prácticas de programación, como componentes reutilizables, código limpio y legible, y comentarios descriptivos.
 - Se debe utilizar GitHub para el control de versiones y el seguimiento del proceso de desarrollo. ✅

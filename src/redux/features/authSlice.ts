@@ -7,13 +7,17 @@ type InitialState = {
 type AuthState = {
     isAuth: boolean,
     email: string,
+    username: string,
     uid: string,
+    avatarUrl: string,
     isModerator: boolean
 }
 
 type LoginPayload = {
     email: string,
-    uid: string
+    username: string,
+    uid: string,
+    avatarUrl: string
 }
 
 const initialState = {
@@ -37,7 +41,9 @@ export const auth = createSlice({
                 value: {
                     isAuth: true,
                     email: action.payload.email,
+                    username: action.payload.username,
                     uid: action.payload.uid,
+                    avatarUrl: action.payload.avatarUrl,
                     isModerator: false
                 }
             }
